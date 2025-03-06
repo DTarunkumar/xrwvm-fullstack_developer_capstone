@@ -91,6 +91,12 @@ def get_dealerships(request, state="All"):
     else:
         endpoint = "/fetchDealers/"+state
     dealerships = get_request(endpoint)
+    # Debugging: Log the response from get_request
+    print("🚀 API Response from get_request:", dealerships)
+
+    # Ensure response is a list, if None return an empty list
+    if not dealerships:
+        dealerships = []
     return JsonResponse({"status":200,"dealers":dealerships})
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer

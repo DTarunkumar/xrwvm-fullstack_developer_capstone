@@ -1,5 +1,5 @@
 # Uncomment the imports below before you add the function code
-# import requests
+import requests
 import os
 from dotenv import load_dotenv
 
@@ -23,9 +23,14 @@ def get_request(endpoint, **kwargs):
 
     print("GET from {} ".format(request_url))
     try:
-        # Call get method of requests library with URL and parameters
-        response = requests.get(request_url)
-        return response.json()
+        response = requests.get(request_url, timeout=10)  # Added timeout
+        print("🔥 Raw API Response:", response.status_code, response.text)  # Debugging
+
+        if response.status_code == 200:
+            return response.json()  # Ensure JSON response
+        else:
+            print(f"⚠️ Error: {response.status_code} - {response.text}")
+            return None
     except:
         # If any error occurs
         print("Network exception occurred")
