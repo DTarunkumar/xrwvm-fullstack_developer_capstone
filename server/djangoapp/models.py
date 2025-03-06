@@ -28,11 +28,13 @@ class CarModel(models.Model):
     type = models.CharField(max_length=10, choices=CAR_TYPES, default='SUV')
 
     # Year constraint (2015 - 2023)
-    year = models.IntegerField(default=2023,
-            validators=[
-                MaxValueValidator(2023),
-                MinValueValidator(2015)
-            ])
+    year = models.IntegerField(
+        default=2023,
+        validators=[
+            MaxValueValidator(2023),
+            MinValueValidator(2015)
+        ]
+    )
 
     def __str__(self):
         return f"{self.car_make.name} {self.name} ({self.year})"

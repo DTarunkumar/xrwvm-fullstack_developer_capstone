@@ -1,7 +1,6 @@
 # Uncomment the required imports before adding the code
 
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import logout
 
 from django.http import JsonResponse
@@ -72,10 +71,10 @@ def registration(request):
         )
         # Login the user and redirect to list page
         login(request, user)
-        data = {"userName": username,"status": "Authenticated"}
+        data = {"userName": username, "status": "Authenticated"}
         return JsonResponse(data)
     else:
-        data = {"userName": username,"error": "Already Registered"}
+        data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
 
@@ -94,7 +93,7 @@ def get_dealerships(request, state="All"):
     # Ensure response is a list, if None return an empty list
     if not dealerships:
         dealerships = []
-    return JsonResponse({"status": 200,"dealers": dealerships})
+    return JsonResponse({"status": 200, "dealers": dealerships})
 
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
@@ -104,9 +103,9 @@ def get_dealer_details(request, dealer_id):
     if (dealer_id):
         endpoint = "/fetchDealer/"+str(dealer_id)
         dealership = get_request(endpoint)
-        return JsonResponse({"status": 200,"dealer": dealership})
+        return JsonResponse({"status": 200, "dealer": dealership})
     else:
-        return JsonResponse({"status": 400,"message": "Bad Request"})
+        return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
 # Create a `get_dealer_details` view to render the dealer details
@@ -121,9 +120,9 @@ def get_dealer_reviews(request, dealer_id):
             response = analyze_review_sentiments(review_detail['review'])
             print(response)
             review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status": 200,"reviews": reviews})
+        return JsonResponse({"status": 200, "reviews": reviews})
     else:
-        return JsonResponse({"status": 400,"message": "Bad Request"})
+        return JsonResponse({"status": 400, "message": "Bad Request"})
 
 
 # Create a `add_review` view to submit a review
@@ -139,7 +138,7 @@ def add_review(request):
             return JsonResponse({"status": 401,
                 "message": "Error in posting review"})
     else:
-        return JsonResponse({"status": 403,"message": "Unauthorized"})
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
 
 
 def get_cars(request):
